@@ -9,7 +9,9 @@
 import UIKit
 
 enum SFSymbolds {
-    static let search =  UIImage(systemName:  "square.stack.3d.up.fill")
+    static let apps =  UIImage(systemName:  "square.stack.3d.up.fill")
+    static let today =  UIImage(systemName:  "clock")
+    static let search = UIImage(systemName:  "magnifyingglass.circle")
 }
 
 

@@ -13,31 +13,24 @@ class BaseTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        viewControllers = [createTodayVC(), createAppsVC(), createSearchVC()]
+        viewControllers = [
+            createNavController(viewController: TodayVC(), title: "Today", image: SFSymbolds.today, tag: 0),
+            createNavController(viewController: AppsVC(), title: "Apps", image: SFSymbolds.apps, tag: 1),
+            createNavController(viewController: SearchVC(), title: "Search", image: SFSymbolds.search, tag: 2)
+        ]
     }
     
-    private func createTodayVC () -> UINavigationController {
-        let todayVC = TodayVC()
-        todayVC.title = "Today"
-        todayVC.tabBarItem = UITabBarItem(tabBarSystemItem: .recents, tag: 0)
+    private func createNavController(viewController: UIViewController, title: String, image: UIImage?, tag: Int) -> UINavigationController {
         
-        return UINavigationController(rootViewController: todayVC)
-    }
-    
-    private func createAppsVC () -> UINavigationController {
-        let appsVC = AppsVC()
-        appsVC.title = "Apps"
-        appsVC.tabBarItem = UITabBarItem(title: "Apps", image: SFSymbolds.search, tag: 1)
+        viewController.title = title
+        viewController.view.backgroundColor = .systemBackground
         
-        return UINavigationController(rootViewController: appsVC)
-    }
-    
-    private func createSearchVC () -> UINavigationController {
-        let searchVC = SearchVC()
-        searchVC.title = "Search"
-        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 2)
+        let navController = UINavigationController(rootViewController: viewController)
+        navController.navigationBar.prefersLargeTitles = true
+        navController.tabBarItem.title = title
+        navController.tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
         
-        return UINavigationController(rootViewController: searchVC)
+        return navController
     }
     
 }
