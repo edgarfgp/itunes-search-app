@@ -12,15 +12,15 @@ class BaseTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         viewControllers = [
-            createNavController(viewController: TodayVC(), title: "Today", image: SFSymbolds.today, tag: 0),
-            createNavController(viewController: AppsVC(), title: "Apps", image: SFSymbolds.apps, tag: 1),
-            createNavController(viewController: SearchVC(), title: "Search", image: SFSymbolds.search, tag: 2)
+            createNavController(viewController: SearchVC(), title: "Search", image: SFSymbolds.search),
+            createNavController(viewController: TodayVC(), title: "Today", image: SFSymbolds.today),
+            createNavController(viewController: AppsVC(), title: "Apps", image: SFSymbolds.apps)
         ]
     }
     
-    private func createNavController(viewController: UIViewController, title: String, image: UIImage?, tag: Int) -> UINavigationController {
+    private func createNavController(viewController: UIViewController, title: String, image: UIImage?) -> UINavigationController {
         
         viewController.title = title
         viewController.view.backgroundColor = .systemBackground
@@ -28,7 +28,7 @@ class BaseTabBarController: UITabBarController {
         let navController = UINavigationController(rootViewController: viewController)
         navController.navigationBar.prefersLargeTitles = true
         navController.tabBarItem.title = title
-        navController.tabBarItem = UITabBarItem(title: title, image: image, tag: tag)
+        navController.tabBarItem.image = image
         
         return navController
     }
