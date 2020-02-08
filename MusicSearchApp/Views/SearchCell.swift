@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SearchCell: UICollectionViewCell {
     
@@ -16,20 +17,21 @@ class SearchCell: UICollectionViewCell {
     private let logoImageSize: CGFloat = 64
     private let cornerRadius: CGFloat = 12
     
+    private lazy var nameLabel = UILabel()
+    private lazy var categoryLabel = UILabel()
+    private lazy var ratingLabel = UILabel()
+    private lazy var getButton = UIButton(type: .system)
+    
     private lazy var infoTopStackView = UIStackView()
-    private lazy var labelsStackView = UIStackView()
-    private lazy var overallStackView = UIStackView()
     private lazy var infoBottomStackView = UIStackView()
+    private lazy var labelsStackView = VerticalStackView(arrangedSubViews: [nameLabel, categoryLabel, ratingLabel])
+    private lazy var overallStackView = VerticalStackView(arrangedSubViews: [infoTopStackView, infoBottomStackView], spacing: padding)
+    
     
     private lazy var imageLogoView = UIImageView()
     private lazy var screenshot1ImageView = self.createScreenshotImageView()
     private lazy var screenshot2ImageView = self.createScreenshotImageView()
     private lazy var screenshot3ImageView = self.createScreenshotImageView()
-    
-    private lazy var nameLabel = UILabel()
-    private lazy var categoryLabel = UILabel()
-    private lazy var ratingLabel = UILabel()
-    private lazy var getButton = UIButton(type: .system)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,14 +42,37 @@ class SearchCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func set (result: Result) {
+        nameLabel.text = result.trackName
+        categoryLabel.text = result.primaryGenreName
+        ratingLabel.text = "Rating: \(result.averageUserRating ?? 0)"
+        imageLogoView.sd_setImage(with: URL(string: result.artworkUrl100))
+        
+        
+        switch result.screenshotUrls.count {
+            
+        case  1:
+            screenshot1ImageView.sd_setImage(with: URL(string: result.screenshotUrls[0]))
+            
+        case  2:
+            screenshot1ImageView.sd_setImage(with: URL(string: result.screenshotUrls[0]))
+            screenshot2ImageView.sd_setImage(with: URL(string: result.screenshotUrls[1]))
+            
+            
+        case 3:
+            screenshot1ImageView.sd_setImage(with: URL(string: result.screenshotUrls[0]))
+            screenshot2ImageView.sd_setImage(with: URL(string: result.screenshotUrls[1]))
+            screenshot3ImageView.sd_setImage(with: URL(string: result.screenshotUrls[2]))
+        default:
+            screenshot1ImageView.sd_setImage(with: URL(string: result.screenshotUrls[0]))
+            screenshot2ImageView.sd_setImage(with: URL(string: result.screenshotUrls[1]))
+            screenshot3ImageView.sd_setImage(with: URL(string: result.screenshotUrls[2]))
+        }
+    }
+    
     private func configureOverallStackView () {
         addSubview(overallStackView)
         overallStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        overallStackView.addArrangedSubview(infoTopStackView)
-        overallStackView.addArrangedSubview(infoBottomStackView)
-        overallStackView.axis = .vertical
-        overallStackView.spacing = 12
         
         NSLayoutConstraint.activate([
             overallStackView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -91,40 +116,22 @@ class SearchCell: UICollectionViewCell {
     
     private func configureLabelsStackView () {
         labelsStackView.translatesAutoresizingMaskIntoConstraints = false
-        labelsStackView.axis = .vertical
-        labelsStackView.addArrangedSubview(nameLabel)
-        labelsStackView.addArrangedSubview(categoryLabel)
-        labelsStackView.addArrangedSubview(ratingLabel)
-        
-        configureNameLabel()
-        configureCategoryLabel()
-        configureRatingLabel()
-    }
-
-    private func configureCategoryLabel() {
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        categoryLabel.text = "Photo & Video"
-    }
-    
-    private func configureRatingLabel() {
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
-        ratingLabel.text = "9.26M"
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        labelsStackView.axis = .vertical
     }
     
     private func configureImageLogoView() {
         imageLogoView.translatesAutoresizingMaskIntoConstraints = false
         imageLogoView.backgroundColor = .red
         imageLogoView.layer.cornerRadius = cornerRadius
+        imageLogoView.clipsToBounds = true
         
         NSLayoutConstraint.activate([
             imageLogoView.widthAnchor.constraint(equalToConstant: logoImageSize),
             imageLogoView.heightAnchor.constraint(equalToConstant: logoImageSize)
         ])
-    }
-    
-    private func configureNameLabel () {
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = "My label"
     }
     
     private func configureGetButton() {
@@ -142,7 +149,12 @@ class SearchCell: UICollectionViewCell {
     
     private func createScreenshotImageView() -> UIImageView {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemBlue
+        imageView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.75)
+        imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
+        imageView.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
+        imageView.layer.borderWidth = 0.5
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }
 }
