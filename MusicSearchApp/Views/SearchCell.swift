@@ -16,9 +16,16 @@ class SearchCell: UICollectionViewCell {
     private let logoImageSize: CGFloat = 64
     private let cornerRadius: CGFloat = 12
     
-    private lazy var containerView = UIStackView()
+    private lazy var infoTopStackView = UIStackView()
     private lazy var labelsStackView = UIStackView()
+    private lazy var overallStackView = UIStackView()
+    private lazy var infoBottomStackView = UIStackView()
+    
     private lazy var imageLogoView = UIImageView()
+    private lazy var screenshot1ImageView = self.createScreenshotImageView()
+    private lazy var screenshot2ImageView = self.createScreenshotImageView()
+    private lazy var screenshot3ImageView = self.createScreenshotImageView()
+    
     private lazy var nameLabel = UILabel()
     private lazy var categoryLabel = UILabel()
     private lazy var ratingLabel = UILabel()
@@ -26,39 +33,74 @@ class SearchCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .yellow
-        configureStackView()
-        configureInnerStackView()
-        configureImageLogo()
-        configureNameLabel()
-        configureGetButton()
+        configureOverallStackView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureStackView() {
-        containerView.addArrangedSubview(imageLogoView)
-        containerView.addArrangedSubview(labelsStackView)
-        containerView.addArrangedSubview(getButton)
-        containerView.spacing  = 12
-        containerView.alignment = .center
-        addSubview(containerView)
-        containerView.constraintToEdges(of: self, constant: padding)
+    private func configureOverallStackView () {
+        addSubview(overallStackView)
+        overallStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        overallStackView.addArrangedSubview(infoTopStackView)
+        overallStackView.addArrangedSubview(infoBottomStackView)
+        overallStackView.axis = .vertical
+        overallStackView.spacing = 12
+        
+        NSLayoutConstraint.activate([
+            overallStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            overallStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            overallStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            overallStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
+        ])
+        
+        configureInfoTopStackView()
+        configureInfoBottomStackView()
     }
     
-    private func configureInnerStackView () {
+    private func configureInfoTopStackView() {
+        infoTopStackView.translatesAutoresizingMaskIntoConstraints = false
+        infoTopStackView.addArrangedSubview(imageLogoView)
+        infoTopStackView.addArrangedSubview(labelsStackView)
+        infoTopStackView.addArrangedSubview(getButton)
+        infoTopStackView.axis = .horizontal
+        infoTopStackView.spacing  = 12
+        infoTopStackView.alignment = .center
+        
+        configureLabelsStackView()
+        configureImageLogoView()
+        configureGetButton()
+    }
+    
+    private func configureInfoBottomStackView() {
+        infoBottomStackView.translatesAutoresizingMaskIntoConstraints = false
+        screenshot1ImageView.translatesAutoresizingMaskIntoConstraints = false
+        screenshot2ImageView.translatesAutoresizingMaskIntoConstraints = false
+        screenshot3ImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        infoBottomStackView.addArrangedSubview(screenshot1ImageView)
+        infoBottomStackView.addArrangedSubview(screenshot2ImageView)
+        infoBottomStackView.addArrangedSubview(screenshot3ImageView)
+        infoBottomStackView.axis = .horizontal
+        infoBottomStackView.spacing = 12
+        infoBottomStackView.distribution = .fillEqually
+        
+    }
+    
+    private func configureLabelsStackView () {
         labelsStackView.translatesAutoresizingMaskIntoConstraints = false
         labelsStackView.axis = .vertical
         labelsStackView.addArrangedSubview(nameLabel)
         labelsStackView.addArrangedSubview(categoryLabel)
         labelsStackView.addArrangedSubview(ratingLabel)
         
+        configureNameLabel()
         configureCategoryLabel()
         configureRatingLabel()
     }
-    
+
     private func configureCategoryLabel() {
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         categoryLabel.text = "Photo & Video"
@@ -69,7 +111,7 @@ class SearchCell: UICollectionViewCell {
         ratingLabel.text = "9.26M"
     }
     
-    private func configureImageLogo() {
+    private func configureImageLogoView() {
         imageLogoView.translatesAutoresizingMaskIntoConstraints = false
         imageLogoView.backgroundColor = .red
         imageLogoView.layer.cornerRadius = cornerRadius
@@ -96,5 +138,11 @@ class SearchCell: UICollectionViewCell {
             getButton.widthAnchor.constraint(equalToConstant: 80),
             getButton.heightAnchor.constraint(equalToConstant: 32)
         ])
+    }
+    
+    private func createScreenshotImageView() -> UIImageView {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .systemBlue
+        return imageView
     }
 }

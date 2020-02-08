@@ -17,7 +17,7 @@
 		688FD2FD23EE037F005B87D1 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD2FC23EE037F005B87D1 /* SearchVC.swift */; };
 		688FD2FF23EE06D2005B87D1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD2FE23EE06D2005B87D1 /* Constants.swift */; };
 		688FD30323EE19B9005B87D1 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD30223EE19B9005B87D1 /* SearchCell.swift */; };
-		688FD30623EE2367005B87D1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD30523EE2367005B87D1 /* UIView.swift */; };
+		688FD30623EE2367005B87D1 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD30523EE2367005B87D1 /* UIView+Layout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		688FD2FC23EE037F005B87D1 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		688FD2FE23EE06D2005B87D1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		688FD30223EE19B9005B87D1 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
-		688FD30523EE2367005B87D1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		688FD30523EE2367005B87D1 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +101,7 @@
 		688FD30423EE234C005B87D1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				688FD30523EE2367005B87D1 /* UIView.swift */,
+				688FD30523EE2367005B87D1 /* UIView+Layout.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -178,7 +178,7 @@
 			files = (
 				688FD2F723EDFE59005B87D1 /* BaseTabBarController.swift in Sources */,
 				688FD30323EE19B9005B87D1 /* SearchCell.swift in Sources */,
-				688FD30623EE2367005B87D1 /* UIView.swift in Sources */,
+				688FD30623EE2367005B87D1 /* UIView+Layout.swift in Sources */,
 				688FD2F923EE032E005B87D1 /* TodayVC.swift in Sources */,
 				688FD2E323EDFD3D005B87D1 /* AppDelegate.swift in Sources */,
 				688FD2FB23EE0359005B87D1 /* AppsVC.swift in Sources */,
