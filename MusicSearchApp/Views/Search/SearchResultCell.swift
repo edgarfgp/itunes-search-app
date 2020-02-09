@@ -9,9 +9,9 @@
 import UIKit
 import SDWebImage
 
-class SearchCell: UICollectionViewCell {
+class SearchResultCell: UICollectionViewCell {
     
-    static let reuseID = "SearchCell"
+    static let reuseID = "SearchResultCell"
     
     private let padding: CGFloat = 16
     private let logoImageSize: CGFloat = 64
@@ -42,12 +42,11 @@ class SearchCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set (result: Result) {
+    func setSearchResult (result: Result) {
         nameLabel.text = result.trackName
         categoryLabel.text = result.primaryGenreName
         ratingLabel.text = "Rating: \(result.averageUserRating ?? 0)"
         imageLogoView.sd_setImage(with: URL(string: result.artworkUrl100))
-        
         
         switch result.screenshotUrls.count {
             
