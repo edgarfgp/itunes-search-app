@@ -10,7 +10,8 @@ import UIKit
 
 class AppsPageController: BaseListController {
     
-    private var appsResult : AppResult?
+    private var groupResult = [AppResult]()
+    private var socialResult = [SocialResult]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,45 +26,123 @@ class AppsPageController: BaseListController {
     
     private func getAppsData(){
         
-        ITunesService.shared.getGames { (result, error) in
+        showLoadingView()
+        
+        var group1 : AppResult?
+        var group2 : AppResult?
+        var group3 : AppResult?
+        
+        //Help us to sync your data together
+        let dispatcgGroup = DispatchGroup()
+        
+         dispatcgGroup.enter()
+        ITunesService.shared.fetchSocialApp { [weak self] (result, error) in
+            
+            guard let self = self else { return }
+            dispatcgGroup.leave()
             
             if let error = error {
                 print("Failed to fetch app :", error)
                 return
             }
             
-            guard let result = result else  { return }
+            guard let result = result else { return }
             
-            self.appsResult = result
+            self.socialResult = result
+        }
+        
+        
+        dispatcgGroup.enter()
+        
+        ITunesService.shared.fetchAppsWeLove { result, error in
             
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            dispatcgGroup.leave()
+            
+            if let error = error {
+                print("Failed to fetch app :", error)
+                return
             }
+            
+            group1  = result
+        }
+        
+        dispatcgGroup.enter()
+        ITunesService.shared.fetchTopGrossing {result, error in
+            
+            dispatcgGroup.leave()
+            
+            if let error = error {
+                print("Failed to fetch app :", error)
+                return
+            }
+            
+            group2 = result
+        }
+        
+        dispatcgGroup.enter()
+        ITunesService.shared.fetchTopGames { result, error in
+            
+            if let error = error {
+                print("Failed to fetch app :", error)
+                return
+            }
+            
+            dispatcgGroup.leave()
+            
+            group3 = result
+        }
+        
+        dispatcgGroup.notify(queue: .main) { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.dissmissLoadingView()
+            
+            if let group = group1 {
+                self.groupResult.append(group)
+            }
+            
+            if let group = group2 {
+                self.groupResult.append(group)
+            }
+            
+            if let group = group3 {
+                self.groupResult.append(group)
+            }
+            
+            self.collectionView.reloadData()
+            
         }
     }
     
     //CollectionView
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return groupResult.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCell.reuseID, for: indexPath) as! AppsGroupCell
-        cell.titleLabel.text = appsResult?.feed.title
-        cell.horizontalController.appResult = appsResult
+        
+        let appGroup = groupResult[indexPath.item]
+        
+        cell.titleLabel.text = appGroup.feed.title
+        cell.horizontalController.appResult = appGroup
         cell.horizontalController.collectionView.reloadData()
         return cell
     }
     
     // Page Header
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AppsPageHeader.reuseID, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AppsPageHeader.reuseID, for: indexPath) as! AppsPageHeader
+                
+        header.appHeaderHorizontalController.socialApps = socialResult
+        header.appHeaderHorizontalController.collectionView.reloadData()
         
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: view.frame.width, height: 250)
+        return .init(width: view.frame.width, height: 300)
     }
 }
 

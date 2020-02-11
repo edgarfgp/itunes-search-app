@@ -12,11 +12,11 @@ class AppHeaderCell: UICollectionViewCell {
     
     static let reuseID = "AppHeaderCell"
     
-    private lazy var companyLabel = UILabel(text: "Facebook", font: UIFont.systemFont(ofSize: 12))
+    lazy var companyLabel = UILabel(text: "Facebook", font: UIFont.systemFont(ofSize: 12))
     
-    private lazy var titleLabel = UILabel(text: "Keeping up with friend is faster that ever.", font: UIFont.systemFont(ofSize: 20))
+    lazy var titleLabel = UILabel(text: "Keeping up with friend is faster that ever.", font: UIFont.systemFont(ofSize: 20))
     
-    private lazy var imageView = UIImageView(cornerRadius: 8)
+    lazy var imageView = UIImageView(cornerRadius: 8)
     
     private lazy var stackView = VerticalStackView(arrangedSubViews: [ companyLabel, titleLabel, imageView ], spacing: 8)
     

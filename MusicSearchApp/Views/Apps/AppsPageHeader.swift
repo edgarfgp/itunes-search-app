@@ -12,7 +12,7 @@ class AppsPageHeader: UICollectionReusableView {
     
     static let reuseID = "AppsPageHeader"
     
-    let appHeaderHorizontalController =  AppsHeaderHorizontalController()
+    var appHeaderHorizontalController =  AppsHeaderHorizontalController()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

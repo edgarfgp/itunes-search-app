@@ -16,8 +16,7 @@ class AppsGroupCell: UICollectionViewCell {
     
     let titleLabel : UILabel = {
         let label = UILabel()
-        label.text = "App Section"
-        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.font = UIFont.boldSystemFont(ofSize: 24)
         return label
     }()
     

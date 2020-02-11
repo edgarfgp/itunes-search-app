@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 class AppsHeaderHorizontalController: BaseListController {
+    
+    var socialApps = [SocialResult]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,11 +25,17 @@ class AppsHeaderHorizontalController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return socialApps.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppHeaderCell.reuseID, for: indexPath) as! AppHeaderCell
+        
+        let result = socialApps[indexPath.item]
+        
+        cell.companyLabel.text = result.name
+        cell.titleLabel.text = result.tagline
+        cell.imageView.sd_setImage(with: URL(string: result.imageUrl))
         return cell
     }
 }
