@@ -14,4 +14,11 @@ enum SFSymbolds {
     static let search = UIImage(systemName:  "magnifyingglass.circle")
 }
 
+enum UrlConstants {
+    static let social = "https://api.letsbuildthatapp.com/appstore/social"
+    static let newAppsWeLove = "https://rss.itunes.apple.com/api/v1/gb/ios-apps/new-apps-we-love/all/50/explicit.json"
+    static let topGrossing = "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing/all/50/explicit.json"
+    static let newGamesWeLove = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json"
+}
+
 

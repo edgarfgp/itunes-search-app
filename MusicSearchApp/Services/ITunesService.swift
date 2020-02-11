@@ -14,86 +14,32 @@ class ITunesService {
     
     func fetchSocialApp(completed: @escaping  ([SocialResult]?, Error?) -> Void) {
         
-        let urlString = "https://api.letsbuildthatapp.com/appstore/social"
-        
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            
-            if let error = error {
-                print("Failed to fetch app", error)
-                completed([], error)
-                return
-            }
-            
-            guard let data = data else { return }
-            
-            do{
-                let socialResult = try JSONDecoder().decode([SocialResult].self, from: data)
-                
-                completed(socialResult, nil)
-                
-            }catch let jsonError {
-                print("Failed to decode JSON", jsonError)
-                completed([], jsonError)
-            }
-        }.resume()
+        fetchGenericJSONSata(urlString: UrlConstants.social, completion: completed)
     }
     
-    func getAppData (searchTerm: String, completed: @escaping  ([Result], Error?) -> Void) {
+    func getAppData (searchTerm: String, completed: @escaping  (SearchResult?, Error?) -> Void) {
         let urlString = "https://itunes.apple.com/search?term=\(searchTerm)&entity=software"
         
-        guard let url = URL(string: urlString) else {
-            return
-        }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            if let error = error {
-                print("Failed to fetch app", error)
-                completed([], error)
-                return
-            }
-            
-            guard let data = data else { return }
-            // print(String(data: data!, encoding: .utf8))
-            do {
-                let rearchResult = try JSONDecoder().decode(SearchResult.self, from: data)
-                
-                completed(rearchResult.results, nil)
-                
-            }catch let jsonError {
-                print("Failed to decode JSON", jsonError)
-                completed([], jsonError)
-            }
-        }.resume()
+        fetchGenericJSONSata(urlString: urlString, completion: completed)
     }
     
     func fetchAppsWeLove(completed : @escaping (AppResult?, Error?) -> Void) {
-        
-        let urlString = "https://rss.itunes.apple.com/api/v1/gb/ios-apps/new-apps-we-love/all/50/explicit.json"
-        
-        fetchAppGroup(urlString: urlString, completed: completed)
+                
+        fetchGenericJSONSata(urlString: UrlConstants.newAppsWeLove, completion: completed)
     }
     
     func fetchTopGrossing(completed : @escaping (AppResult?, Error?) -> Void) {
         
-        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing/all/50/explicit.json"
-        
-        fetchAppGroup(urlString: urlString, completed: completed)
+        fetchGenericJSONSata(urlString: UrlConstants.topGrossing, completion: completed)
     }
     
     func fetchTopGames(completed : @escaping (AppResult?, Error?) -> Void) {
-        
-        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json"
-        
-        fetchAppGroup(urlString: urlString, completed: completed)
+                
+        fetchGenericJSONSata(urlString: UrlConstants.newGamesWeLove, completion: completed)
     }
     
-    
-    func fetchAppGroup(urlString : String, completed : @escaping (AppResult?, Error?) -> ()) {
+    func fetchGenericJSONSata<T: Decodable>(urlString: String, completion:  @escaping (T?, Error?) -> Void) {
         
         guard let url = URL(string: urlString) else {
             return
@@ -103,20 +49,20 @@ class ITunesService {
             
             if let error = error {
                 print("Failed to fetch app", error)
-                completed(nil, error)
+                completion(nil, error)
                 return
             }
             
             guard let data = data else { return }
             
             do {
-                let gamesResult = try JSONDecoder().decode(AppResult.self, from: data)
+                let result = try JSONDecoder().decode(T.self, from: data)
                 
-                completed(gamesResult, nil)
+                completion(result, nil)
                 
             }catch let jsonError {
                 print("Failed to decode JSON", jsonError)
-                completed(nil, jsonError)
+                completion(nil, jsonError)
             }
             
             

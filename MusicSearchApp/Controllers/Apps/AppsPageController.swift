@@ -38,8 +38,9 @@ class AppsPageController: BaseListController {
          dispatcgGroup.enter()
         ITunesService.shared.fetchSocialApp { [weak self] (result, error) in
             
-            guard let self = self else { return }
             dispatcgGroup.leave()
+            
+            guard let self = self else { return }
             
             if let error = error {
                 print("Failed to fetch app :", error)

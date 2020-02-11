@@ -66,8 +66,13 @@ class SearchController: BaseListController {
     }
     
     private func getItuneAppsData() {
-        ITunesService.shared.getAppData(searchTerm: "Twiter")  { results, error in
-            self.searchResults = results
+        ITunesService.shared.getAppData(searchTerm: "Twiter")  { [weak self] results, error in
+            
+            guard let self = self else { return }
+            
+            if let results = results {
+                self.searchResults = results.results
+            }
             
             if let error = error {
                 print("Failed to fetch app :", error)
@@ -96,8 +101,13 @@ extension SearchController : UISearchBarDelegate {
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (_) in
             
-            ITunesService.shared.getAppData(searchTerm: searchText) { results, error in
-                self.searchResults = results
+            ITunesService.shared.getAppData(searchTerm: searchText) { [weak self] results, error in
+                
+                guard let self = self else { return }
+                
+                if let results = results {
+                    self.searchResults = results.results
+                }
                 
                 if let error = error {
                     print("Failed to fetch app :", error)
