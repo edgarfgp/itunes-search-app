@@ -9,22 +9,20 @@
 import UIKit
 import SDWebImage
 
-class AppsHorizontalController : BaseListController {
+class AppsHorizontalController : HorizontalSnapingController {
     
     private let topBottomPadding: CGFloat = 12
     private let lineSpacing: CGFloat = 10
     
     var appResult : AppResult?
     
+    var didSelecthandler : ((FeedResult) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .systemBackground
         
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: AppRowCell.reuseID)
-        
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -39,6 +37,13 @@ class AppsHorizontalController : BaseListController {
         cell.imageView.sd_setImage(with: URL(string: app?.artworkUrl100 ?? ""))
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let app = appResult?.feed.results[indexPath.item] {
+            didSelecthandler?(app)
+        }
     }
 }
 

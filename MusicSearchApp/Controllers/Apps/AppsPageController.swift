@@ -129,6 +129,18 @@ class AppsPageController: BaseListController {
         cell.titleLabel.text = appGroup.feed.title
         cell.horizontalController.appResult = appGroup
         cell.horizontalController.collectionView.reloadData()
+        
+        cell.horizontalController.didSelecthandler = { [weak self] result in
+            guard let self = self else { return }
+            
+            let appDetailController = AppDetailController()
+            appDetailController.title = result.name
+            
+            self.navigationController?.pushViewController(appDetailController, animated: true)
+            
+            
+        }
+        
         return cell
     }
     

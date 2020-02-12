@@ -18,6 +18,7 @@
 		6826669123F351D700FD7769 /* SocialResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6826669023F351D700FD7769 /* SocialResult.swift */; };
 		684C92C623EEC3F70036673C /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684C92C523EEC3F70036673C /* VerticalStackView.swift */; };
 		684C92C923EF04760036673C /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684C92C823EF04760036673C /* SearchResult.swift */; };
+		687CAE7A23F3F06E00EA45FC /* HorizontalSnapingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CAE7923F3F06E00EA45FC /* HorizontalSnapingController.swift */; };
 		688FD2E323EDFD3D005B87D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD2E223EDFD3D005B87D1 /* AppDelegate.swift */; };
 		688FD2E523EDFD3D005B87D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD2E423EDFD3D005B87D1 /* SceneDelegate.swift */; };
 		688FD2EC23EDFD40005B87D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 688FD2EB23EDFD40005B87D1 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		688FD2FD23EE037F005B87D1 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD2FC23EE037F005B87D1 /* SearchController.swift */; };
 		688FD2FF23EE06D2005B87D1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD2FE23EE06D2005B87D1 /* Constants.swift */; };
 		688FD30623EE2367005B87D1 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD30523EE2367005B87D1 /* UIView+Ext.swift */; };
+		68A54CC323F46A8A0076E200 /* AppDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A54CC223F46A8A0076E200 /* AppDetailController.swift */; };
 		68EE2D8523F08E8400369C5C /* AppsHeaderHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EE2D8423F08E8400369C5C /* AppsHeaderHorizontalController.swift */; };
 		68EE2D8723F091C200369C5C /* AppHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EE2D8623F091C200369C5C /* AppHeaderCell.swift */; };
 		68EE2D8923F0B43C00369C5C /* AppsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EE2D8823F0B43C00369C5C /* AppsResult.swift */; };
@@ -47,6 +49,7 @@
 		6826669023F351D700FD7769 /* SocialResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialResult.swift; sourceTree = "<group>"; };
 		684C92C523EEC3F70036673C /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		684C92C823EF04760036673C /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		687CAE7923F3F06E00EA45FC /* HorizontalSnapingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnapingController.swift; sourceTree = "<group>"; };
 		688FD2DF23EDFD3D005B87D1 /* MusicSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		688FD2E223EDFD3D005B87D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		688FD2E423EDFD3D005B87D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +60,7 @@
 		688FD2FC23EE037F005B87D1 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		688FD2FE23EE06D2005B87D1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		688FD30523EE2367005B87D1 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		68A54CC223F46A8A0076E200 /* AppDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailController.swift; sourceTree = "<group>"; };
 		68EE2D8423F08E8400369C5C /* AppsHeaderHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderHorizontalController.swift; sourceTree = "<group>"; };
 		68EE2D8623F091C200369C5C /* AppHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderCell.swift; sourceTree = "<group>"; };
 		68EE2D8823F0B43C00369C5C /* AppsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsResult.swift; sourceTree = "<group>"; };
@@ -80,12 +84,14 @@
 		6814C36423F06A47001E770C /* Apps */ = {
 			isa = PBXGroup;
 			children = (
+				68A54CC123F46A6A0076E200 /* Details */,
 				6814C36223F05FE3001E770C /* AppsHorizontalController.swift */,
 				6814C36D23F07157001E770C /* AppsGroupCell.swift */,
 				6814C36F23F0718E001E770C /* AppRowCell.swift */,
 				6814C37123F081FE001E770C /* AppsPageHeader.swift */,
 				68EE2D8423F08E8400369C5C /* AppsHeaderHorizontalController.swift */,
 				68EE2D8623F091C200369C5C /* AppHeaderCell.swift */,
+				687CAE7923F3F06E00EA45FC /* HorizontalSnapingController.swift */,
 			);
 			path = Apps;
 			sourceTree = "<group>";
@@ -179,6 +185,14 @@
 				688FD2FE23EE06D2005B87D1 /* Constants.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		68A54CC123F46A6A0076E200 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				68A54CC223F46A8A0076E200 /* AppDetailController.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		68F2BDE723EF29B200F26E2F /* Services */ = {
@@ -302,10 +316,12 @@
 				68EE2D8923F0B43C00369C5C /* AppsResult.swift in Sources */,
 				68F2BDF023EF9BC500F26E2F /* BaseListController.swift in Sources */,
 				68EE2D8523F08E8400369C5C /* AppsHeaderHorizontalController.swift in Sources */,
+				68A54CC323F46A8A0076E200 /* AppDetailController.swift in Sources */,
 				6814C36723F06C6F001E770C /* Common+Ext.swift in Sources */,
 				6826669123F351D700FD7769 /* SocialResult.swift in Sources */,
 				68EE2D8723F091C200369C5C /* AppHeaderCell.swift in Sources */,
 				688FD2E523EDFD3D005B87D1 /* SceneDelegate.swift in Sources */,
+				687CAE7A23F3F06E00EA45FC /* HorizontalSnapingController.swift in Sources */,
 				688FD2FD23EE037F005B87D1 /* SearchController.swift in Sources */,
 				688FD2FF23EE06D2005B87D1 /* Constants.swift in Sources */,
 				684C92C623EEC3F70036673C /* VerticalStackView.swift in Sources */,

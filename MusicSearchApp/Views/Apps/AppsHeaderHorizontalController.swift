@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class AppsHeaderHorizontalController: BaseListController {
+class AppsHeaderHorizontalController: HorizontalSnapingController {
     
     var socialApps = [SocialResult]()
     
@@ -18,10 +18,6 @@ class AppsHeaderHorizontalController: BaseListController {
         collectionView.backgroundColor = .systemBackground
         
         collectionView.register(AppHeaderCell.self, forCellWithReuseIdentifier: AppHeaderCell.reuseID)
-        
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
